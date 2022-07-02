@@ -7,7 +7,7 @@ ENV GO111MODULE=on \
     GOOS=linux \
     GOARCH=amd64
 
-WORKDIR /app/go
+WORKDIR /opt/app
 
 COPY . .
 
@@ -18,9 +18,9 @@ RUN go mod download
 RUN GOOS=linux GOARCH=amd64 go build ./main.go
 
 # Stage 2
-FROM golang:1.18-alpine
+FROM alpine:3.16
 
-COPY --from=builder /app/go/main /home/main
+COPY --from=builder /opt/app/main /opt/app/main
 
 # Set the start command
-CMD ["/home/main"]
+CMD ["/opt/app/main"]
