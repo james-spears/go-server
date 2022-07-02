@@ -45,8 +45,8 @@ jobs:
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.REPO_PERSONAL_ACCESS_TOKEN }}
-      - run: git config --global user.name 'Tripsultant Bot 🤖'
-      - run: git config --global user.email 'ci@tripsultant.com'
+      - run: git config --global user.name 'James Spears 🤖'
+      - run: git config --global user.email 'james.w.spears@gmail.com'
       - run: git fetch --prune --unshallow --tags
 
       - name: Patch version
