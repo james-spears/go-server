@@ -1,0 +1,91 @@
+go_server_http: 2022/07/02 11:52:17 server is starting...
+go_server_http: 2022/07/02 11:52:17 server is ready to handle requests at ":8080"
+2022/07/02 11:53:01 /api/v1/hello-world
+go_server_http: 2022/07/02 11:53:01 cl5ahty79zuq GET /api/v1/hello-world [::1]:53128 PostmanRuntime/7.29.0 122.217µs
+2022/07/02 11:53:05 /api/v1/hello-world
+go_server_http: 2022/07/02 11:53:05 cl5ahvmhmopt POST /api/v1/hello-world [::1]:53128 PostmanRuntime/7.29.0 161.875µs
+go_server_http: 2022/07/02 11:53:50 server is shutting down...
+go_server_http: 2022/07/02 11:53:50 server stopped: OK
+go_server_http: 2022/07/02 11:53:53 server is starting...
+go_server_http: 2022/07/02 11:53:53 server is ready to handle requests at ":8080"
+2022/07/02 11:53:58 /api/v1/hello-world
+go_server_http: 2022/07/02 11:53:58 cl5aijyvvfvq POST /api/v1/hello-world [::1]:53132 PostmanRuntime/7.29.0 184.364µs
+2022/07/02 11:54:15 /api/v1/hello-world
+go_server_http: 2022/07/02 11:54:15 cl5airru3usm GET /api/v1/hello-world [::1]:53136 PostmanRuntime/7.29.0 140.586µs
+2022/07/02 11:54:20 /api/v1/hello-worl
+go_server_http: 2022/07/02 11:54:20 cl5aiu8wp80e GET /api/v1/hello-worl [::1]:53136 PostmanRuntime/7.29.0 107.697µs
+2022/07/02 11:54:43 /ap
+go_server_http: 2022/07/02 11:54:43 cl5aj4q36oo3 GET /ap [::1]:53140 PostmanRuntime/7.29.0 123.406µs
+2022/07/02 11:54:49 /api/
+go_server_http: 2022/07/02 11:54:49 cl5aj7iac9lw GET /api/ [::1]:53140 PostmanRuntime/7.29.0 100.217µs
+2022/07/02 11:54:54 /api/v
+go_server_http: 2022/07/02 11:54:54 cl5aj9yhyvwg GET /api/v [::1]:53140 PostmanRuntime/7.29.0 101.847µs
+2022/07/02 11:54:57 /api/v1
+go_server_http: 2022/07/02 11:54:57 cl5ajayist7p GET /api/v1 [::1]:53140 PostmanRuntime/7.29.0 96.947µs
+go_server_http: 2022/07/02 11:54:57 http: panic serving [::1]:53140: runtime error: index out of range [3] with length 3
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1825 +0xbf
+panic({0x672a80, 0xc000018168})
+	/usr/local/go/src/runtime/panic.go:844 +0x258
+github.com/jameswspears/go-server/service.V1Handler({0x6fc710, 0xc0000a80e0}, 0xc0000a0300)
+	/home/james/github.com/jameswspears/go-server/service/handlers.go:97 +0xc7
+github.com/jameswspears/go-server/service.ApiHandler({0x6fc710, 0xc0000a80e0}, 0xc0000a0300)
+	/home/james/github.com/jameswspears/go-server/service/handlers.go:114 +0x7f
+github.com/jameswspears/go-server/service.RootHandler({0x6fc710, 0xc0000a80e0}, 0xc0000a0300)
+	/home/james/github.com/jameswspears/go-server/service/handlers.go:128 +0xe5
+github.com/jameswspears/go-server/service.(*HttpController).Index(0x7f546794d108?, {0x6fc710?, 0xc0000a80e0?}, 0xc0000aa2c0?)
+	/home/james/github.com/jameswspears/go-server/service/controller.go:49 +0x2c
+net/http.HandlerFunc.ServeHTTP(0x2b0000c000012160?, {0x6fc710?, 0xc0000a80e0?}, 0xc0001a9920?)
+	/usr/local/go/src/net/http/server.go:2084 +0x2f
+net/http.(*ServeMux).ServeHTTP(0x66b220?, {0x6fc710, 0xc0000a80e0}, 0xc0000a0300)
+	/usr/local/go/src/net/http/server.go:2462 +0x149
+github.com/jameswspears/go-server/service.(*HttpController).Tracing.func1({0x6fc710, 0xc0000a80e0}, 0xc0000a0300)
+	/home/james/github.com/jameswspears/go-server/service/interceptors.go:38 +0x163
+net/http.HandlerFunc.ServeHTTP(0x6fab80?, {0x6fc710?, 0xc0000a80e0?}, 0xc0a83875805043b7?)
+	/usr/local/go/src/net/http/server.go:2084 +0x2f
+github.com/jameswspears/go-server/service.(*HttpController).Logging.func1({0x6fc710, 0xc0000a80e0}, 0xc0000a0300)
+	/home/james/github.com/jameswspears/go-server/service/interceptors.go:27 +0x119
+net/http.HandlerFunc.ServeHTTP(0x0?, {0x6fc710?, 0xc0000a80e0?}, 0x40e545?)
+	/usr/local/go/src/net/http/server.go:2084 +0x2f
+net/http.serverHandler.ServeHTTP({0x6fbbd0?}, {0x6fc710, 0xc0000a80e0}, 0xc0000a0300)
+	/usr/local/go/src/net/http/server.go:2916 +0x43b
+net/http.(*conn).serve(0xc00009e0a0, {0x6fc908, 0xc000184e10})
+	/usr/local/go/src/net/http/server.go:1966 +0x5d7
+created by net/http.(*Server).Serve
+	/usr/local/go/src/net/http/server.go:3071 +0x4db
+go_server_http: 2022/07/02 11:58:20 server is shutting down...
+go_server_http: 2022/07/02 11:58:20 server stopped: OK
+go_server_http: 2022/07/02 11:58:21 server is starting...
+go_server_http: 2022/07/02 11:58:21 server is ready to handle requests at ":8080"
+go_server_http: 2022/07/02 11:58:22 server is shutting down...
+go_server_http: 2022/07/02 11:58:22 server stopped: OK
+go_server_http: 2022/07/02 11:58:24 server is starting...
+go_server_http: 2022/07/02 11:58:24 server is ready to handle requests at ":8080"
+go_server_http: 2022/07/02 11:58:29 cl5am0itgdah GET /api/v1/ [::1]:53148 PostmanRuntime/7.29.0 75.117µs
+go_server_http: 2022/07/02 12:25:23 server is shutting down...
+go_server_http: 2022/07/02 12:25:23 server stopped: OK
+go_server_http: 2022/07/02 12:25:27 server is starting...
+go_server_http: 2022/07/02 12:25:27 server is ready to handle requests at ":8080"
+go_server_http: 2022/07/02 12:25:32 cl5b6qcnbniq GET /api/v1/ [::1]:53170 PostmanRuntime/7.29.0 63.508µs
+go_server_http: 2022/07/02 12:25:37 cl5b6sjuo4g5 GET /api/v1/ [::1]:53170 PostmanRuntime/7.29.0 15.019µs
+go_server_http: 2022/07/02 12:25:46 cl5b6wfzk5y8 GET /api/ [::1]:53170 PostmanRuntime/7.29.0 14.559µs
+go_server_http: 2022/07/02 12:25:48 cl5b6xotadbj GET /api/ [::1]:53170 PostmanRuntime/7.29.0 18.17µs
+go_server_http: 2022/07/02 12:25:52 cl5b6z9vxxxs GET /api/ [::1]:53170 PostmanRuntime/7.29.0 13.959µs
+go_server_http: 2022/07/02 12:25:56 cl5b712d4ytm GET /api/ [::1]:53170 PostmanRuntime/7.29.0 18.889µs
+go_server_http: 2022/07/02 12:25:58 cl5b724xz2qi GET /api/ [::1]:53170 PostmanRuntime/7.29.0 24.089µs
+go_server_http: 2022/07/02 12:26:01 cl5b73dctegw GET /api/ [::1]:53170 PostmanRuntime/7.29.0 13.489µs
+go_server_http: 2022/07/02 12:27:02 cl5b7vball9x GET ///// [::1]:53174 PostmanRuntime/7.29.0 28.699µs
+go_server_http: 2022/07/02 12:27:02 cl5b7vbdmh3w GET / [::1]:53174 PostmanRuntime/7.29.0 27.229µs
+go_server_http: 2022/07/02 12:37:15 server is shutting down...
+go_server_http: 2022/07/02 12:37:15 server stopped: OK
+go_server_http: 2022/07/02 12:37:17 server is starting...
+go_server_http: 2022/07/02 12:37:17 server is ready to handle requests at ":8080"
+go_server_http: 2022/07/02 12:37:27 cl5bfulx8qzk GET ///// [::1]:53186 PostmanRuntime/7.29.0 15.089µs
+go_server_http: 2022/07/02 12:37:27 cl5bfulyxiqf GET / [::1]:53186 PostmanRuntime/7.29.0 7.81µs
+go_server_http: 2022/07/02 12:57:22 server is shutting down...
+go_server_http: 2022/07/02 12:57:22 server stopped: OK
+go_server_http: 2022/07/02 12:57:24 server is starting...
+go_server_http: 2022/07/02 12:57:24 server is ready to handle requests at ":8080"
+go_server_http: 2022/07/02 12:59:22 server is shutting down...
+go_server_http: 2022/07/02 12:59:22 server stopped: OK
