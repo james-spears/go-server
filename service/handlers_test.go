@@ -30,7 +30,7 @@ func TestRootHandler(t *testing.T) {
 	}
 
 	// Check the response body is what we expect.
-	expected := "{\"errors\":[{\"error\":\"cannot handle request\"},{\"error\":\"not found\"}]}"
+	expected := "Not Found."
 	if rr.Body.String() != expected {
 		fmt.Printf("handler returned unexpected body: got %v want %v",
 			rr.Body.Bytes(), []byte(expected))
