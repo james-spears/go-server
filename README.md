@@ -1,8 +1,6 @@
-# Google maps service
+# HTTP/S Service
 
-The goal of this project is to create a minimal and reliable
-Google maps service exposing various Google maps APIs to
-end user applications.
+The goal of this project is to create a minimal and reliable HTTP/S service.
 
 ## Default Ports
 
@@ -11,7 +9,7 @@ end user applications.
 The default transport protocol is HTTP and so no additional configuration
 is required to expose the service behind an HTTP server.
 
-The Google maps service defaut HTTP port is `8080`, and can be overridden by the `PORT` environment variable.
+The service's defaut HTTP port is `8080`, and can be overridden by the `PORT` environment variable.
 
 Ex. Use port `80` instead of `8080`.
 
@@ -31,7 +29,7 @@ export LOG_DIR='/var/log/accounts'
 
 ### Combined Logs
 
-The Google maps service default HTTP log file is `go_server.log`, and can be overridden by the `LOG_FILE` environment variable.
+The service's default HTTP log file is `go_server.log`, and can be overridden by the `LOG_FILE` environment variable.
 
 Ex. Log to file `logs.log` instead of `go_server.log`.
 
