@@ -2,12 +2,17 @@
 
 The goal of this project is to create a minimal and reliable HTTP/S service.
 
+## Workflows
+
+In order to use the CI workflow to generate commits for version bumps you will need create a PAT with repo access and store this as a secret named REPO_PERSONAL_ACCESS_TOKEN [here](./.github/workflows/on-push.yml#L47). 
+
+Also see [here](./.github/workflows/on-push.yml#L48) and [here](./.github/workflows/on-push.yml#L49) and replace the name and email to the ones you want to appear in version bump commits.
+
 ## Default Ports
 
 ### HTTP Port
 
-The default transport protocol is HTTP and so no additional configuration
-is required to expose the service behind an HTTP server.
+The default transport protocol is HTTP and so no additional configuration is required to expose the service behind an HTTP server.
 
 The service's defaut HTTP port is `8080`, and can be overridden by the `PORT` environment variable.
 
