@@ -1,0 +1,65 @@
+name: Acceptance Test
+on:
+  push:
+    branches: [main, dev]
+  workflow_dispatch:
+
+jobs:
+  acceptance-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '^1.18.3'
+
+      - name: Unit test
+        run: |
+          go test ./... -coverprofile=cover.out && go tool cover -html=cover.out
+
+  version-bump:
+    needs: acceptance-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '^1.18.3'
+
+      - name: Tidy mod
+        run: |
+          go mod tidy
+
+      - name: Unit test
+        run: |
+          go test ./...
+
+      - name: Bump version
+        id: version-bump
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.REPO_PERSONAL_ACCESS_TOKEN }}
+      - run: git config --global user.name 'Tripsultant Bot 🤖'
+      - run: git config --global user.email 'ci@tripsultant.com'
+      - run: git fetch --prune --unshallow --tags
+
+      - name: Patch version
+        if: endsWith(github.ref, '/main')
+        run: echo "version=$(git describe --tags `git rev-list --tags --max-count=1` | awk 'BEGIN { FS="." } { $3++; } { printf "v%d.%d.%d\n", $1, $2, $3 }')" >> $GITHUB_ENV
+
+      - name: Prepatch version
+        if: endsWith(github.ref, '/dev')
+        run: echo "version=$(git describe --tags `git rev-list --tags --max-count=1` | awk 'BEGIN { FS="[.|-]" } { if ($4 == "") $3++; if ($4 >= 0 ) $4++; } { printf "v%d.%d.%d-%d\n", $1, $2, $3, $4 }')" >> $GITHUB_ENV
+
+      - run: sed -i -e '1i${{ env.version }}\' .versions
+      - run: git add go.mod go.sum .versions
+      - run: git commit -m "Bump version ${{ env.version }} [skip ci]"
+      - run: git push
+      - run: git tag ${{ env.version }}
+      - run: git push origin --tags
