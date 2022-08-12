@@ -129,6 +129,20 @@ jobs:
           echo "version=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
 
       - name: Create release
+        if: contains(env.version, '-') == true
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ env.version }}
+          release_name: Release ${{ env.version }}
+          body: |
+            ${{ env.version }} is an automated release 🤖.
+          draft: false
+          prerelease: true
+
+      - name: Create release
+        if: contains(env.version, '-') == false
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
