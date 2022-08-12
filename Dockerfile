@@ -1,5 +1,5 @@
 # Stage 1
-FROM golang:1.18-alpine as builder
+FROM golang:1.19-alpine as builder
 
 # Set necessary environmet variables needed for our image
 ENV GO111MODULE=on \
