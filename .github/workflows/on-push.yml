@@ -125,8 +125,8 @@ jobs:
 
       - name: Determine version
         run: |
-        git fetch -a
-        echo "version=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
+          git fetch -a
+          echo "version=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
 
       - name: Create release
         uses: actions/create-release@v1
