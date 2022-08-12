@@ -64,27 +64,8 @@ jobs:
       - run: git tag ${{ env.version }}
       - run: git push origin --tags
 
-  create-release:
-    needs: version-bump
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Create release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            ${{ github.ref }} is an automated release 🤖.
-          draft: false
-          prerelease: true
-
   generate-package:
-    needs: create-release
+    needs: version-bump
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -134,3 +115,22 @@ jobs:
           push: true
           tags: |
             ghcr.io/${{ github.repository }}:${{ steps.vars.outputs.sha_short }}
+
+  create-release:
+    needs: generate-package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Create release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            ${{ github.ref }} is an automated release 🤖.
+          draft: false
+          prerelease: true
