@@ -65,6 +65,7 @@ jobs:
       - run: git push origin --tags
 
   create-release:
+    needs: version-bump
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -83,6 +84,7 @@ jobs:
           prerelease: true
 
   generate-package:
+    needs: create-release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
