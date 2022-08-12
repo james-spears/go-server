@@ -57,9 +57,9 @@ jobs:
         if: endsWith(github.ref, '/dev')
         run: echo "version=$(git describe --tags `git rev-list --tags --max-count=1` | awk 'BEGIN { FS="[.|-]" } { if ($4 == "") $3++; if ($4 >= 0 ) $4++; } { printf "v%d.%d.%d-%d\n", $1, $2, $3, $4 }')" >> $GITHUB_ENV
 
-      - run: git add go.mod go.sum
-      - run: git commit -m "Bump version ${{ env.version }} [skip ci]"
-      - run: git push
+      # - run: git add go.mod go.sum
+      # - run: git commit -m "Bump version ${{ env.version }} [skip ci]"
+      # - run: git push
       - run: git tag ${{ env.version }}
       - run: git push origin --tags
 
