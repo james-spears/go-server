@@ -124,7 +124,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Determine version
-        run: echo "version=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
+        run: echo "version=$(head -1 .versions)" >> $GITHUB_ENV
 
       - name: Create release
         uses: actions/create-release@v1
