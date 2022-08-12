@@ -2,10 +2,6 @@
 
 The goal of this project is to create a minimal and reliable HTTP service.
 
-## Workflows 
-
-See [here](./.github/workflows/on-push.yml#L48) and [here](./.github/workflows/on-push.yml#L49) and replace the name and email to the ones you want to appear in version bump commits.
-
 ## Default Ports
 
 ### HTTP Port
