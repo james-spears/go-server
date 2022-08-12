@@ -1,4 +1,4 @@
-# HTTP/S Service
+# HTTP Service
 
 The goal of this project is to create a minimal and reliable HTTP service.
 
