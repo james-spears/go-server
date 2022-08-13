@@ -125,8 +125,11 @@ jobs:
         run: |
           git fetch -a
           echo "version=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
+          echo "head=$(git rev-parse HEAD)" >> $GITHUB_ENV
+          echo "tag=$(git rev-list --tags --max-count=1)" >> $GITHUB_ENV
 
       - name: Create release
+        if: env.head != env.tag
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
