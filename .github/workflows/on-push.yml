@@ -48,11 +48,11 @@ jobs:
       - run: git push origin --tags
 
       - name: Patch version
-        if: endsWith(github.ref, '/main')
+        if: endsWith(github.ref, '/main') && env.tags != 0
         run: echo "version=$(git describe --tags `git rev-list --tags --max-count=1` | awk 'BEGIN { FS="." } { $3++; } { printf "v%d.%d.%d\n", $1, $2, $3 }')" >> $GITHUB_ENV
 
       - name: Prepatch version
-        if: endsWith(github.ref, '/dev')
+        if: endsWith(github.ref, '/dev') && env.tags != 0
         run: echo "version=$(git describe --tags `git rev-list --tags --max-count=1` | awk 'BEGIN { FS="[.|-]" } { if ($4 == "") $3++; if ($4 >= 0 ) $4++; } { printf "v%d.%d.%d-%d\n", $1, $2, $3, $4 }')" >> $GITHUB_ENV
       - run: git tag ${{ env.version }}
       - run: git push origin --tags
