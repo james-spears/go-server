@@ -49,11 +49,11 @@ jobs:
 
       - name: Patch version
         if: endsWith(github.ref, '/main') && env.tags != 0
-        run: echo "version=$(git describe --tags `git rev-list --tags --max-count=1` | awk 'BEGIN { FS="." } { $3++; } { printf "v%d.%d.%d\n", $1, $2, $3 }')" >> $GITHUB_ENV
+        run: echo "version=$(git tag --sort=committerdate | tail -1 | awk 'BEGIN { FS="." } { $3++; } { printf "v%d.%d.%d\n", $1, $2, $3 }')" >> $GITHUB_ENV
 
       - name: Prepatch version
         if: endsWith(github.ref, '/dev') && env.tags != 0
-        run: echo "version=$(git describe --tags `git rev-list --tags --max-count=1` | awk 'BEGIN { FS="[.|-]" } { if ($4 == "") $3++; if ($4 >= 0 ) $4++; } { printf "v%d.%d.%d-%d\n", $1, $2, $3, $4 }')" >> $GITHUB_ENV
+        run: echo "version=$(git tag --sort=committerdate | tail -1 | awk 'BEGIN { FS="[.|-]" } { if ($4 == "") $3++; if ($4 >= 0 ) $4++; } { printf "v%d.%d.%d-%d\n", $1, $2, $3, $4 }')" >> $GITHUB_ENV
       - run: git tag ${{ env.version }}
       - run: git push origin --tags
 
@@ -70,7 +70,7 @@ jobs:
         run: |
           git fetch -a
           echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-          echo "::set-output name=version::$(git describe --tags `git rev-list --tags --max-count=1`)"
+          echo "::set-output name=version::$(git tag --sort=committerdate | tail -1)"
 
       - name: Set env to production
         if: "!contains(github.event.release.name, '-')"
@@ -124,12 +124,9 @@ jobs:
       - name: Determine version
         run: |
           git fetch -a
-          echo "version=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
-          echo "head=$(git rev-parse HEAD)" >> $GITHUB_ENV
-          echo "tag=$(git rev-list --tags --max-count=1)" >> $GITHUB_ENV
+          echo "version=$(git tag --sort=committerdate | tail -1)" >> $GITHUB_ENV
 
       - name: Create release
-        if: env.head != env.tag
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
