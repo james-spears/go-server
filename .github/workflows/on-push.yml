@@ -32,20 +32,17 @@ jobs:
         with:
           go-version: '^1.19.0'
 
-      - name: Tidy mod
-        run: |
-          go mod tidy
-
-      - name: Unit test
-        run: |
-          go test ./...
-
       - name: Bump version
         id: version-bump
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - run: git fetch --prune --unshallow --tags
+
+      - name: Initialization
+        if: (git rev-list --tags --max-count=1) === 0
+        run: git tag v0.0.0
+      - run: git push origin --tags
 
       - name: Patch version
         if: endsWith(github.ref, '/main')
