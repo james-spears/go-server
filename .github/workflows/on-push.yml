@@ -68,6 +68,7 @@ jobs:
         id: vars
         shell: bash
         run: |
+          git fetch -a
           echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
           echo "::set-output name=version::$(git describe --tags `git rev-list --tags --max-count=1`)"
 
