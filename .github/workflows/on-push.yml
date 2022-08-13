@@ -126,7 +126,8 @@ jobs:
           git fetch -a
           echo "version=$(git tag --sort=committerdate | tail -1)" >> $GITHUB_ENV
 
-      - name: Create release
+      - name: Create pre-release
+        if: contains(env.version, '-')
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
@@ -136,4 +137,17 @@ jobs:
           body: |
             ${{ env.version }} is an automated release 🤖.
           draft: false
-          prerelease: contains(env.version, '-')
+          prerelease: true
+
+      - name: Create release
+        if: "!contains(env.version, '-')"
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ env.version }}
+          release_name: Release ${{ env.version }}
+          body: |
+            ${{ env.version }} is an automated release 🤖.
+          draft: false
+          prerelease: false
