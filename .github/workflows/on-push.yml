@@ -69,6 +69,7 @@ jobs:
         shell: bash
         run: |
           echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+          echo "::set-output name=version::$(git describe --tags `git rev-list --tags --max-count=1`)"
 
       - name: Set env to production
         if: "!contains(github.event.release.name, '-')"
@@ -100,6 +101,8 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository }}:latest
             ghcr.io/${{ github.repository }}:${{ steps.vars.outputs.sha_short }}
+            ghcr.io/${{ github.repository }}:${{ steps.vars.outputs.version }}
+
 
       - name: Build-and-push
         if: "contains(github.event.release.name, '-')"
@@ -108,6 +111,7 @@ jobs:
           push: true
           tags: |
             ghcr.io/${{ github.repository }}:${{ steps.vars.outputs.sha_short }}
+            ghcr.io/${{ github.repository }}:${{ steps.vars.outputs.version }}
 
   create-release:
     needs: generate-package
