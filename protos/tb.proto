@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option go_package = "github.com/jameswspears/go-server;protos";
+
+package protos;
+
+service ToggleButton {
+  // Sends a heartbeat.
+  rpc HealthCheck (HealthCheckRequest) returns (HealthCheckResponse) {}
+}
+
+// Request message containing no body.
+message HealthCheckRequest {}
+
+// Response message proving alive.
+message HealthCheckResponse {
+  bool alive = 1;
+}
